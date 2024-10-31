@@ -12,8 +12,12 @@ class CreateOrderDetailsTable extends Migration
     public function up(): void
     {
         Schema::create('orderdetails', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('id_order');
+            $table->unsignedBigInteger('id_book');
             $table->timestamps();
+
+            $table->foreign('id_order')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('id_book')->references('id')->on('books')->onDelete('cascade');
         });
     }
 

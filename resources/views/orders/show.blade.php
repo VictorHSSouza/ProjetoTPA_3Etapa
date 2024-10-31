@@ -6,16 +6,22 @@
         <h1>Detalhes do Cliente</h1>
         <table class="table table-bordered">
             <tr>
-                <th>ID do Cliente</th>
-                <td>{{ $order->id_customer }}</td>
+                <th>ID do Pedido</th>
+                <td>{{ $order->id }}</td>
             </tr>
             <tr>
-                <th>ID do Bibliotecário</th>
-                <td>{{ $order->id_librarian }}</td>
+                <th>ID e Nome do Cliente</th>
+                <td>{{ $order->customer->id }} - {{ $order->customer->name }}</td>
             </tr>
             <tr>
-                <th>Data e Hora</th>
-                <td>{{ $order->date_time->format('d/m/Y H:i') }}</td>
+                @foreach ($order->orderdetails as $orderdetails)
+                    <th>Nome do Livro</th>
+                    <td>{{ $orderdetails->book->name }}</td>
+                @endforeach
+            </tr>
+            <tr>
+                <th>Data do Pedido</th>
+                <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
             </tr>
         </table>
         <a href="{{ route('orders.index') }}" class="btn btn-secondary">Voltar</a>

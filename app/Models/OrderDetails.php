@@ -11,5 +11,11 @@ class OrderDetails extends Model
 
     protected $fillable = ['id_order', 'id_book'];
 
- 
+    protected $table = 'orderdetails';
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'id_book');
+    }
+
 }

@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label for="birth_date">Data de Nascimento</label>
-                <input type="date" class="form-control" id="birth_date" name="birth_date" value="{{ $customer->birth_date->format('Y-m-d') }}" required>
+                <input type="date" class="form-control" id="birth_date" name="birth_date" value="{{ (new DateTime($customer->birth_date))->format('Y-m-d') }}" required>
             </div>
             <div class="form-group">
                 <label for="address">Endereço</label>
@@ -33,7 +33,5 @@
             <button type="submit" class="btn btn-warning">Atualizar</button>
             <a href="{{ route('customers.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
-    </div>
-@endsection
     </div>
 @endsection

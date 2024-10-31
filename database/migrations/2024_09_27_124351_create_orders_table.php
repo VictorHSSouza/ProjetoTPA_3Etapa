@@ -15,8 +15,7 @@ class CreateOrdersTable extends Migration
             $table->id(); // ID padrão
             $table->unsignedBigInteger('id_librarian'); // ID do bibliotecário
             $table->unsignedBigInteger('id_customer'); // ID do cliente
-            $table->timestamp('date_time'); // Data e hora
-            $table->timestamps(); // created_at e updated_at
+            $table->timestamps();
             
             // Chaves estrangeiras (caso existam)
             $table->foreign('id_librarian')->references('id')->on('librarians')->onDelete('cascade');

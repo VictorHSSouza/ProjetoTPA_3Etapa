@@ -8,17 +8,18 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID Livraria</th>
-                <th>ID Cliente</th>
+                <th>ID Pedido</th>
+                <th>ID e Nome do Cliente</th>
                 <th>Data de Criação</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($orders as $order)
             <tr>
-                <td>{{ $order->id_librarian }}</td>
-                <td>{{ $order->id_customer }}</td>
-                <td>{{ $order->date_time }}</td>
+                <td>{{ $order->id }}</td>
+                <td>{{ $order->customer->id }} - {{ $order->customer->name }}</td>
+                <td>{{ $order->created_at }}</td>
                 <td>
                     <a href="{{ route('orders.show', $order->id) }}" class="btn btn-info">Ver</a>
                     <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-warning">Editar</a>
