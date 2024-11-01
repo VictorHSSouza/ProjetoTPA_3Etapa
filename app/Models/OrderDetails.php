@@ -13,6 +13,11 @@ class OrderDetails extends Model
 
     protected $table = 'orderdetails';
 
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'id_order');
+    }
+
     public function book()
     {
         return $this->belongsTo(Book::class, 'id_book');

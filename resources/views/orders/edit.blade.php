@@ -19,7 +19,7 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             <label for="id_customer">Cliente:</label>
             <select class="form-control" name="id_customer" id="id_customer" required>
                 <option value="">Selecione um Cliente</option>

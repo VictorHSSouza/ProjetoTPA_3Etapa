@@ -11,5 +11,8 @@ class Book extends Model
 
     protected $fillable = ['name','autor', 'creation_date','category','indicative_rating'];
            
- 
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'orderdetails', 'id_book', 'id_order');
+    }
 }

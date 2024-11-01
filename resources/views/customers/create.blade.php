@@ -22,7 +22,7 @@
                 <label for="address">Endereço</label>
                 <input type="text" class="form-control" id="address" name="address">
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="phone">Telefone</label>
                 <input type="text" class="form-control" id="phone" name="phone">
             </div>

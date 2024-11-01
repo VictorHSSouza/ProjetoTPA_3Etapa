@@ -20,13 +20,13 @@
             </div>
             <div class="form-group">
                 <label for="birth_date">Data de Nascimento</label>
-                <input type="date" class="form-control" id="birth_date" name="birth_date" value="{{ (new DateTime($customer->birth_date))->format('Y-m-d') }}" required>
+                <input type="date" class="form-control" id="birth_date" name="birth_date" value="{{ Carbon::parse($customer->birth_date)->format('Y-m-d') }}" required>
             </div>
             <div class="form-group">
                 <label for="address">Endereço</label>
                 <input type="text" class="form-control" id="address" name="address" value="{{ $customer->address }}">
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="phone">Telefone</label>
                 <input type="text" class="form-control" id="phone" name="phone" value="{{ $customer->phone }}">
             </div>

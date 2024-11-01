@@ -7,24 +7,33 @@ use Illuminate\Support\Facades\Schema;
 class CreateLibrariansTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Execute the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('librarians', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 255);
-            $table->string('email',255);
+            $table->unsignedBigInteger('user_id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->date('birth_date');
+            $table->string('phone');
+            $table->string('cpf')->unique();
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Revert the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('librarians');
     }
-};
+}

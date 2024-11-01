@@ -1,14 +1,32 @@
-{{-- resources/views/book/show.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>{{ $book->name }}</h1>
-    <p><strong>Autor:</strong> {{ $book->author }}</p>
-    <p><strong>Data de Criação:</strong> {{ $book->creation_date }}</p>
-    <p><strong>Categoria:</strong> {{ $book->category }}</p>
-    <p><strong>Avaliação Indicativa:</strong> {{ $book->indicative_rating }}</p>
-    <a href="{{ route('book.index') }}" class="btn btn-primary">Voltar</a>
-    <a href="{{ route('book.edit', $book->id) }}" class="btn btn-warning">Editar</a>
-</div>
+    <h1>Detalhes do Livro</h1>
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <td>{{ $book->id }}</td>
+        </tr>
+        <tr>
+            <th>Nome</th>
+            <td>{{ $book->name }}</td>
+        </tr>
+        <tr>
+            <th>Autor</th>
+            <td>{{ $book->autor }}</td>
+        </tr>
+        <tr>
+            <th>Data de Criação</th>
+            <td>{{ \Carbon\Carbon::parse($book->creation_date)->format('d/m/Y') }}</td>
+        </tr>
+        <tr>
+            <th>Categoria</th>
+            <td>{{ $book->category }}</td>
+        </tr>
+        <tr>
+            <th>Classificação Indicativa</th>
+            <td>{{ $book->indicative_rating ?? 'Não informado' }}</td>
+        </tr>
+    </table>
+    <a href="{{ route('books.index') }}" class="btn btn-secondary">Voltar</a>
 @endsection

@@ -2,60 +2,83 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Controllers\Controller;
 use App\Models\Librarian;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class LibrarianController extends Controller
 {
-    // Exibir todos os bibliotecários
     public function index()
     {
         $librarians = Librarian::all();
-        return response()->json($librarians);
+        return view('librarians.index', compact('librarians'));
     }
 
-    // Exibir um bibliotecário específico
-    public function show($id)
+    public function create()
     {
-        $librarian = Librarian::findOrFail($id);
-        return response()->json($librarian);
+        return view('librarians.create');
     }
 
-    // Criar um novo bibliotecário
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:librarians',
-            'phone' => 'nullable|string|max:20',
-            'registration' => 'required|string|max:100|unique:librarians',
+            'email' => 'required|string|email|max:255|unique:users',
+            'birth_date' => 'required|date',
+            'phone' => 'required|string|max:255',
+            'cpf' => 'required|string|max:255|unique:librarians',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $librarian = Librarian::create($request->all());
-        return response()->json($librarian, 201);
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+
+        Librarian::create([
+            'user_id' => $user->id,
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'birth_date' => $request->input('birth_date'),
+            'phone' => $request->input('phone'),
+            'cpf' => $request->input('cpf'),
+        ]);
+
+        return redirect()->route('librarians.index')->with('success', 'Bibliotecário criado com sucesso.');
     }
 
-    // Atualizar um bibliotecário existente
-    public function update(Request $request, $id)
+    public function show(Librarian $librarian)
     {
-        $librarian = Librarian::findOrFail($id);
+        return view('librarians.show', compact('librarian'));
+    }
 
+    public function edit(Librarian $librarian)
+    {
+        return view('librarians.edit', compact('librarian'));
+    }
+
+    public function update(Request $request, Librarian $librarian)
+    {
         $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'email' => 'sometimes|required|string|email|max:255|unique:librarians,email,' . $librarian->id,
-            'phone' => 'nullable|string|max:20',
-            'registration' => 'sometimes|required|string|max:100|unique:librarians,registration,' . $librarian->id,
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $librarian->id,
+            'birth_date' => 'required|date',
+            'phone' => 'required|string|max:255',
+            'cpf' => 'required|string|max:255|unique:librarians',
         ]);
 
         $librarian->update($request->all());
-        return response()->json($librarian);
+        return redirect()->route('librarians.index')->with('success', 'Bibliotecário atualizado com sucesso.');
     }
 
-    // Remover um bibliotecário
-    public function destroy($id)
+    public function destroy(Librarian $librarian)
     {
-        $librarian = Librarian::findOrFail($id);
         $librarian->delete();
-        return response()->json(null, 204);
+        return redirect()->route('librarians.index')->with('success', 'Bibliotecário excluído com sucesso.');
     }
 }

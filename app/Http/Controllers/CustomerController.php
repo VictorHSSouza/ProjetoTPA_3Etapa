@@ -64,7 +64,7 @@ class CustomerController extends Controller
         ]);
 
         $customer->update($request->all());
-        return redirect()->route('customers.show', $customer->id)->with('success', 'Cliente atualizado com sucesso!');
+        return redirect()->route('customers.index', $customer->id)->with('success', 'Cliente atualizado com sucesso!');
     }
 
 
@@ -76,10 +76,4 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'Cliente excluído com sucesso!');
     }
 
-    public function ViewCustomers()
-    {
-        $customers = Customer::all();
-
-        return view('orders.create', compact('customer'));
-    }
 }

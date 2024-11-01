@@ -11,6 +11,11 @@ class Order extends Model
 
     protected $fillable = ['id_librarian', 'id_customer'];
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'id_customer');
+    }
+
     public function orderDetails()
     {
         return $this->hasMany(OrderDetails::class, 'id_order');
@@ -18,12 +23,7 @@ class Order extends Model
 
     public function books()
     {
-        return $this->hasManyThrough(Book::class, OrderDetails::class, 'id_order', 'id', 'id', 'id_book');
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class, 'id_customer');
+        return $this->belongsToMany(Book::class, 'orderdetails', 'id_order', 'id_book');
     }
 
 

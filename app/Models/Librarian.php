@@ -9,6 +9,17 @@ class Librarian extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email','phone','registration'];
+    protected $fillable = [
+        'user_id',
+        'name',
+        'email',
+        'birth_date',
+        'phone',
+        'cpf',
+    ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
